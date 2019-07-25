@@ -1,28 +1,32 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="app">
+        <router-view></router-view>
+        <!--<login></login>-->
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    import IndexVue from './components/Index'
+    import Login from "./components/Login";
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            Login,
+            IndexVue
+        },
+        mounted : function () {
+            window.addEventListener('unload',this.saveState)
+        },
+        methods : {
+            saveState : function () {
+                console.log("页面刷新");
+                sessionStorage.setItem('state',JSON.stringify(this.$store.state))
+            }
+        },
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
